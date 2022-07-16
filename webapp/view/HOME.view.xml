@@ -1,0 +1,561 @@
+<!--<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"-->
+<!--	controllerName="COM.PLANTMAINTENACEPORTALPLANTMAINTENACEPORTAL.controller.HOME" xmlns:html="http://www.w3.org/1999/xhtml">-->
+<!--	<App>-->
+<!--		<pages>-->
+<!--			<Page title="Title">-->
+<!--				<content></content>-->
+<!--			</Page>-->
+<!--		</pages>-->
+<!--	</App>-->
+<!--</mvc:View>--> 
+
+
+<mvc:View controllerName="COM.PLANTMAINTENACEPORTALPLANTMAINTENACEPORTAL.controller.HOME" xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout"
+	xmlns:t="sap.suite.ui.commons" 	xmlns:f="sap.f"
+	xmlns:card="sap.f.cards" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<SplitContainer id="SplitContDemo" initialDetail="detail" initialMaster="master">
+		<detailPages>
+			<Page id="detail" title="Notification Details" backgroundDesign="Solid" showNavButton="{= !${device>/system/desktop} }"
+				navButtonPress=".onPressDetailBack">
+				<!--<Label text="Detail page 1" class="sapUiTinyMarginEnd"/>-->
+				<!--<Button text="Go to Detail page 2" press=".onPressNavToDetail"/>-->
+				<!--<content>--> 
+				<!--   <mvc:XMLView viewName="COM.MAINTENANCEPORTALMAINTENANCEPORTAL.view.NOTIFICATIONMASTER" ></mvc:XMLView> -->
+				<!--   </content>--> 
+				
+					<IconTabBar
+			id="idIconTabBar"
+			select=".onFilterSelect"
+			class="sapUiResponsiveContentPadding myWidth">
+			<items>
+			
+				
+			      	<IconTabFilter
+			
+					icon="sap-icon://grid"
+					iconColor="Positive"
+					count=""
+					text="Dashboard"
+					key="dashboard" /> 
+					
+					<IconTabFilter
+			
+					icon="sap-icon://bell"
+					iconColor="Critical"
+					count="{usermodel>/Total}"
+					text="Recieved Notification"
+					key="NotifAll" /> 
+					
+						<IconTabFilter
+			
+					icon="sap-icon://alert"
+					iconColor="Negative"
+					count="{usermodel>/VeryHigh}"
+					text="High Priority Notification"
+					key="HighNotif" /> 
+					
+					
+					
+					
+						<IconTabFilter
+			
+					icon="sap-icon://log"
+					iconColor="Negative"
+				    
+					text="Log Out"
+					key="Logout" /> 
+					
+					
+			</items></IconTabBar>
+				<Table id="idNotificationTable" inset="false" items="{/results}">
+					<headerToolbar>
+						<OverflowToolbar >
+							<Title text="Notifications Order Details View" level="H2"/>
+							<content>
+								<!--<ToolbarSpacer/>-->
+								<!--<SearchField liveChange=".onSearch" width="17.5rem"/>-->
+								<!--<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onAdd"/>-->
+								<!--<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>--> 
+								       
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<infoToolbar>
+						<OverflowToolbar>
+							<Label text="Received Notifications Orders"/>
+						</OverflowToolbar>
+					</infoToolbar>
+					<columns>
+						<Column width="12em">
+							<Text text="Notification ID"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="Notification Type"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+							<Text text="Problem Description"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+							<Text text="Notification Date"/>
+						</Column>
+						<Column hAlign="End">
+							<Text text="Priority"/>
+						</Column> 
+						
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle" type="Navigation" press=".onTablePress">
+							<cells>
+								<ObjectStatus class="sapUiSmallMarginBottom rose" title="" icon="sap-icon://business-card" text="{Qmnum}"/>
+								<ObjectStatus class="sapUiSmallMarginBottom " text="{Qmart}" icon="sap-icon://alert" state="Warning"/>
+								<!--<Text-->
+								<!--	text="{Plantname}" /> -->
+								<ObjectStatus class="sapUiSmallMarginBottom blue" text="{Qmtxt}" icon="sap-icon://cancel-maintenance" state="Error"/>
+								<ObjectStatus class="sapUiSmallMarginBottom blue" text="{
+									          parts:[
+									            {path : 'Qmdat' }
+									          ],
+									          formatter: '.formatter.DateConvertor'
+									}" icon="sap-icon://sys-enter-2" state="None"/> 
+								
+								
+								<l:VerticalLayout class="sapUiContentPadding">
+									<!--<Text text="{= ${Priok} === '1' ? 'HIGH' : 'Medium'}"/>-->
+									<!--<Text text="{-->
+									<!--          parts:[-->
+									<!--            {path : 'Priok' }-->
+									<!--          ],-->
+									<!--          formatter: '.formatter.PriorityDecoder'-->
+									<!--}"></Text>-->
+									<ObjectStatus class="sapUiSmallMarginBottom rose" text="{
+									          parts:[
+									            {path : 'Priok' }
+									          ],
+									          formatter: '.formatter.PriorityDecoder'
+									}"
+									icon="{
+									          parts:[
+									            {path : 'Priok' }
+									          ],
+									          formatter: '.formatter.GetPriorityIcon'
+									}"
+									
+									state="{
+									          parts:[
+									            {path : 'Priok' }
+									          ],
+									          formatter: '.formatter.GetPriorityState'
+									}"
+										/>
+									
+								</l:VerticalLayout> 
+							
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			
+			</Page>
+			
+			
+			
+			<Page id="detailDetail" title="Notification and WorkOrder Details" backgroundDesign="Solid" showNavButton="true" navButtonPress=".onPressDetailBack">  
+			
+			       	<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}"
+	                           class="sapUiResponsiveContentPadding" select=".onFilterSelect">
+		  
+		  
+		<items>
+			<IconTabFilter text="Notification Header" key="NotifHead" class="sapUiResponsiveContentPadding">
+				            
+				                   <VBox class="sapUiSmallMargin">
+					<!--<Label text="This is Detail Page 2" />-->
+					<!--<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour." />-->
+					<!--<Panel headerText="Upper center"> -->
+					<VBox class="sapUiSmallMargin">
+						<form:SimpleForm id="former" editable="false" layout="ResponsiveGridLayout" title="Notification Order Detail Description" labelSpanXL="4"
+							labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+							columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false" >
+							<form:content id="form" key="prop">
+								
+								<core:Title text="Notification Order Information" class="blue" />
+								<Label text="Notification Order No" class="title"/>
+								<Text id="notifid" text="{notifymodel>/NotifNo}" class="green" />
+								<Label text="Notification Order Type" class="title"/>
+								<Text text="{notifymodel>/NotifType}" class="title"/> 
+								<Label text="Notification Date" class="title"/>
+								<Text text="{notifymodel>/NotifDate}" class="title"/> 
+								
+								<Label text="Notification Received Time" class="title"/>
+								<Text text="{ path:'notifymodel>/Notiftime',  
+                                              type: 'sap.ui.model.odata.type.Time',
+                                              formatOptions: {  
+                                                                pattern : 'HH:mm:ss'
+                                                             }
+                                            }" class="title"/> 
+                                       
+                                
+                                <core:Title text="Priority Details"/>
+                                <Label text="Priority Indication" class="title"/>
+								<Text text="{notifymodel>/Priority}" class="title"/> 
+								<Label text="Priority Type" class="title"/>
+								<Text text="{notifymodel>/Priotype}" class="title"/> 
+								<Label text="Priority Notification Status No" class="title"/>
+								<Text text="{notifymodel>/ObjectNo}" class="title"/> 
+								
+							    
+							
+						
+							</form:content> 
+						
+
+						</form:SimpleForm> 
+					
+					</VBox>
+					<!--	</Panel>  -->  
+				
+				
+					
+					
+				</VBox> 
+				       
+				
+			</IconTabFilter>
+			
+				
+			
+			
+			
+			
+			
+			
+			
+			<IconTabFilter text="Problem Descriptions" key="NotifProb">
+				<Text text="{notifymodel>/ShortText}"/> 
+				 <VBox class="sapUiSmallMargin">
+				
+					<VBox class="sapUiSmallMargin">
+						<form:SimpleForm id="probform" editable="false" layout="ResponsiveGridLayout" title="Problem Detail Description" labelSpanXL="4"
+							labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+							columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<form:content id="prob" key="probdet">
+								
+							 <core:Title text="Priority Details"/>
+								<Label text="Problem Description"/>
+								<Text text="{notifymodel>/ShortText}"/> 
+								
+								<Label text="Object Malfunction Date"/>
+								<Text text="{notifymodel>/Strmlfndate}"/> 
+								
+								<Label text="Object Malfunction Time"/>
+								<Text text="{ path:'notifymodel>/Strmlfntime',  
+                                              type: 'sap.ui.model.odata.type.Time',
+                                              formatOptions: {  
+                                                                pattern : 'HH:mm:ss'
+                                                             }
+                                            }"/> 
+                                            
+                                <Label text="Required Start Date"/>
+								<Text text="{notifymodel>/Desstdate}"/> 
+								
+								<Label text="Required End Time"/>
+								<Text text="{ path:'notifymodel>/Dessttime',  
+                                              type: 'sap.ui.model.odata.type.Time',
+                                              formatOptions: {  
+                                                                pattern : 'HH:mm:ss'
+                                                             }
+                                            }"/> 
+							</form:content>
+						</form:SimpleForm> 
+					</VBox>  
+				</VBox>
+			</IconTabFilter>
+			
+			
+			<IconTabFilter text="Plant Details" key="Plant">
+				<!--<Text text="Notes go here ..." /> -->
+				<VBox class="sapUiSmallMargin">
+				
+					<VBox class="sapUiSmallMargin">
+						<form:SimpleForm id="plantform" editable="false" layout="ResponsiveGridLayout" title="Plant Detail Description" labelSpanXL="4"
+							labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+							columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<form:content id="plantid" key="plantdet">
+								
+							 <core:Title text="Plant Details"/>
+								<Label text="Controlling Area"/>
+								<Text text="{notifymodel>/CoArea}"/> 
+								
+								<Label text="Location Account NoTechnical Object"/>
+								<Text text="{notifymodel>/LocAcc}"/> 
+								
+								<Label text="Maintenance Location ID"/>
+								<Text text="{notifymodel>/Maintloc}"/> 
+                                            
+                               	<Label text="Maintenance Location Plant ID"/>
+								<Text text="{notifymodel>/Maintplant}"/> 
+								
+								 <Label text="Maintenance Call No"/>
+								 <Text text="{notifymodel>/MntcallNo}"/>  
+								
+								 <Label text="Object ID of PP work center"/>
+								<Text text="{notifymodel>/PmWkctr}"/> 
+								
+								<Label text="Maintenance Planning Plant"/>
+								<Text text="{notifymodel>/Planplant}"/> 
+								
+							
+							</form:content>
+						</form:SimpleForm> 
+					</VBox>  
+				</VBox>
+				
+				
+			</IconTabFilter>
+			
+			<IconTabFilter text="Work Order Details" key="Work">
+				<!--<Text text="People content goes here ..." /> -->
+				
+				<VBox class="sapUiSmallMargin">
+				
+					<VBox class="sapUiSmallMargin">
+						<form:SimpleForm id="Workform" editable="false" layout="ResponsiveGridLayout" title="Plant Detail Description" labelSpanXL="4"
+							labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+							columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<form:content id="workid" key="workdet">
+								
+							 <core:Title text="Work Order Details"/>
+								<Label text="Work Order ID"/>
+								<Text text="{notifymodel>/Orderid}"/> 
+								<Label text="Work Order Type"/>
+								<Text text="{notifymodel>/OrderType}"/> 
+								<Label text="Work Order Start Date"/>
+								<Text text="{notifymodel>/StartDate}"/> 
+								<Label text="Work Order End Date"/>
+								<Text text="{notifymodel>/FinishDate}"/> 
+								
+								
+
+
+								
+						     <core:Title text="Work Center Regions"/>
+								<Label text="Business Area"/>
+								<Text text="{notifymodel>/BusArea}"/> 
+								<Label text="Controlling Area"/>
+								<Text text="{notifymodel>/CoArea}"/> 
+								<Label text="Company CODE"/>
+								<Text text="{notifymodel>/CompCode}"/> 
+								<Label text="Work Order End Date"/>
+								<Text text="{notifymodel>/FinishDate}"/>  
+								
+						
+							
+							
+							</form:content>
+						</form:SimpleForm> 
+					</VBox>  
+				</VBox>
+			</IconTabFilter>
+			
+			
+			
+				<IconTabFilter text="Maintenance Details" key="WorkMaint">
+				<!--<Text text="People content goes here ..." /> -->
+					<VBox class="sapUiSmallMargin">
+				
+					<VBox class="sapUiSmallMargin">
+						<form:SimpleForm id="WorkMaintform" editable="false" layout="ResponsiveGridLayout" title="Plant Detail Description" labelSpanXL="4"
+							labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+							columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<form:content id="workMaintid" key="workMaintdet">
+								
+							 
+								
+							
+							<core:Title text="Maintenance Regions"/>
+								<Label text="Work Center Location"/>
+								<Text text="{notifymodel>/LocWkCtr}"/> 
+								<Label text="Assest Location"/>
+								<Text text="{notifymodel>/Location}"/> 
+								<Label text="Maintenance Plant"/>
+								<Text text="{notifymodel>/Maintplant}"/> 
+								<Label text="Maintenace Task Work Center"/>
+								<Text text="{notifymodel>/MnWkCtre}"/>  
+								<Label text="Maintenace Task Work Center ID"/>
+								<Text text="{notifymodel>/MnWkctrIde}"/>  
+								
+						
+							<core:Title text="WorkCenter Plant Details"/>
+								<Label text="Maintenance Planning Plant"/>
+								<Text text="{notifymodel>/Planplant}"/> 
+								<Label text="Plant associated with main work center"/>
+								<Text text="{notifymodel>/Plant}"/> 
+								<Label text="Maintenance activity type"/>
+								<Text text="{notifymodel>/Pmacttype}"/> 
+							
+							
+							</form:content>
+						</form:SimpleForm> 
+					</VBox>  
+				</VBox>
+			</IconTabFilter>
+			
+			
+				<IconTabFilter text="Malfunction Equipment Details" key="Equip">
+				<!--<Text text="People content goes here ..." /> -->
+					<VBox class="sapUiSmallMargin">
+				
+					<VBox class="sapUiSmallMargin">
+						<form:SimpleForm id="Equipform" editable="false" layout="ResponsiveGridLayout" title="Plant Detail Description" labelSpanXL="4"
+							labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+							columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<form:content id="equipid" key="equiptdet">
+								
+							 
+								
+							
+							<core:Title text="Malfunction Equipment Details"/>
+								<Label text="Equipment NO"/>
+								<Text text="{notifymodel>/EquipNo}"/>  
+								<Label text="Equipment Descriptions"/>
+								<Text text="{notifymodel>/Descript}"/>  
+								<Label text="Manufacturer"/>
+								<Text text="{notifymodel>/Manufacture}"/> 
+								<Label text="Manufacturer serial number"/>
+								<Text text="{notifymodel>/Manserno}"/> 
+								<Label text="Manufacturer model number"/>
+								<Text text="{notifymodel>/Manmodel}"/>  
+								<Label text="Manufacturer part number"/>
+								<Text text="{notifymodel>/Manparno}"/>  
+							
+							</form:content>
+						</form:SimpleForm> 
+					</VBox>  
+				</VBox>
+			</IconTabFilter> 
+		
+			
+			
+		</items>
+		
+	</IconTabBar>
+			     
+			
+			                                    
+	
+
+			    
+			    
+			    
+			    
+			    
+			    
+			    
+			    
+			    
+			    
+			    
+				<!--<VBox class="sapUiSmallMargin">-->
+					<!--<Label text="This is Detail Page 2" />-->
+					<!--<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour." />-->
+					<!--<Panel headerText="Upper center"> -->
+				<!--	<VBox class="sapUiSmallMargin">-->
+				<!--		<form:SimpleForm id="former" editable="false" layout="ResponsiveGridLayout" title="Notification Order Detail Description" labelSpanXL="4"-->
+				<!--			labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"-->
+				<!--			columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">-->
+				<!--			<form:content id="form" key="prop">-->
+				<!--				<core:Title text="Notification Order Information"/>-->
+				<!--				<Label text="Notification Order No" class="blue"/>-->
+				<!--				<Text id="notifid" text="{notifymodel>/Qmnum}"/>-->
+				<!--				<Label text="Notification Order Type"/>-->
+				<!--				<Text text="{notifymodel>/Qmart}"/>-->
+				<!--				<core:Title text="Equpiment Details"/>-->
+				<!--				<Label text="Equipment No"/>-->
+				<!--				<Text id="nameText" text="{notifymodel>/Equnr}"/>-->
+				<!--				<Label text="Technical Object Name"/>-->
+				<!--				<Text text="{notifymodel>/Techobject}"/>-->
+				<!--				<Label text="Problem Description"/>-->
+				<!--				<Text text="{notifymodel>/Qmtxt}"/>-->
+				<!--				<core:Title text="Plant Deatils"/>-->
+				<!--				<Label text="Plant Name"/>-->
+				<!--				<Text text="{notifymodel>/Plantname}"/>-->
+				<!--				<Label text="Plant Location"/>-->
+				<!--				<Text text="{notifymodel>/Plantlocation}"/>-->
+				<!--				<core:Title text="Status of the Notification"/>-->
+				<!--				<Label text="Current Status"/>-->
+				<!--				<Text text="{notifymodel>/Currentstatus}"/>-->
+				<!--				<Label text="Priority"/>-->
+				<!--				<Text text="{notifymodel>/Priok}"/>-->
+				<!--				<Label text="Reporting Date"/>-->
+				<!--				<Text text="{notifymodel>/Qmdat}"/>-->
+				<!--			</form:content>-->
+				<!--		</form:SimpleForm>-->
+				<!--	</VBox>-->
+					<!--	</Panel>  --> 
+					
+					
+				<!--</VBox> -->
+			</Page>
+			
+			
+			<Page id="detail2" title="Profile Page" backgroundDesign="Solid" showNavButton="true" navButtonPress=".onPressDetailBack">
+			  
+			  <Text text="hello {profilemodel>/Usnam}"></Text>
+			  	<IconTabBar
+		id="profile"
+		select=".onFilterSelect"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			    <IconTabFilter
+				icon = "sap-icon://business-card"
+				iconColor = "Positive"
+				text = "User ID"
+				key = "Ok"> 
+				    <Text text="{profilemodel>/Kunum}"></Text>
+				</IconTabFilter>
+			
+				<IconTabFilter
+				icon = "sap-icon://account"
+				iconColor = "Positive"
+				
+				text = "UserName"
+				key = "Ok" > 
+				    <Text text="{profilemodel>/Usnam}"></Text>
+				</IconTabFilter>
+				
+				<IconTabFilter
+				icon = "sap-icon://cancel-maintenance"
+				iconColor = "Negative"
+				
+				text = "Designation Role"
+				key = "Ok" > 
+				    <Text text="{profilemodel>/Designation}"></Text>
+				</IconTabFilter>
+		
+		
+		</items>
+		</IconTabBar>
+			 
+			</Page>
+			
+			
+		</detailPages>
+		
+		<masterPages>
+			<Page id="master" title="Plant Maintenance Menu" backgroundDesign="List">
+				<List>
+					<StandardListItem title="MENU ORDER" type="Navigation" press=".onPressGoToMaster"/>
+				</List>
+			</Page>
+			<Page id="master2" title="Select the Option" backgroundDesign="List" showNavButton="true" navButtonPress=".onPressMasterBack">
+				<List itemPress=".onListItemPress">
+					<StandardListItem title="Recieved Notifications" type="Active" custom:to="detail"/>
+					<!--<StandardListItem title="Pending Notifications" type="Active" custom:to="detailDetail"/>-->
+					<StandardListItem title="Profile " type="Active" custom:to="detail2"/>
+				
+				</List>
+			</Page>
+		</masterPages>
+	</SplitContainer>
+</mvc:View>

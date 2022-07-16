@@ -1,0 +1,158 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="COM.PLANTMAINTENACEPORTALPLANTMAINTENACEPORTAL.controller.DASHBOARD" 
+	xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Plant Maintenance Dashboard" id="TileBoard">  
+				
+				<IconTabBar
+			id="idIconTabBar"
+			select=".onFilterSelect"
+			class="sapUiResponsiveContentPadding myWidth">
+			<items>
+			
+				<IconTabFilter
+					icon="sap-icon://account"
+					iconColor="Positive"
+					count=""
+					text="{notifymodel>/Usnam}"
+					key="Ok" />
+				<IconTabFilter
+					icon="sap-icon://add-equipment"
+					iconColor="Negative"
+					count=""
+					text="{notifymodel>/Designation}"
+					key="Heavy" />
+				<IconTabFilter
+			
+					icon="sap-icon://business-card"
+					iconColor="Positive"
+					count=""
+					text="ID NO {notifymodel>/Kunum}"
+					key="Overweight" /> 
+					
+					<IconTabFilter
+			
+					icon="sap-icon://bell"
+					iconColor="Critical"
+					count="{notifymodel>/Total}"
+					text="Recieved Notification"
+					key="NotifAll" /> 
+					
+						<IconTabFilter
+			
+					icon="sap-icon://alert"
+					iconColor="Negative"
+					count="{notifymodel>/VeryHigh}"
+					text="High Priority Notification"
+					key="Overweight" /> 
+					
+						<IconTabFilter
+			
+					icon="sap-icon://log"
+					iconColor="Negative"
+				    
+					text="Log Out"
+					key="Logout" /> 
+					
+					
+			</items></IconTabBar>
+			 
+		        <l:VerticalLayout>
+		        	
+		        <l:HorizontalLayout>
+		        
+			        
+			          	<GenericTile header="" subheader="" backgroundImage="/webapp/images/pmengineer.webp" 
+				frameType="TwoByOne" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout tile blue" press="NotifBoard">
+				  <tileContent>
+				   
+				    	<TileContent footer="Maintained By {notifymodel>/Usnam} {notifymodel>/Designation}">
+		                	<NewsContent
+					contentText="Plant Maintenance Portals"
+					subheader=""  class="blue tile" />
+					
+		                 </TileContent>
+				
+				  </tileContent>
+				</GenericTile>
+			    
+		
+				
+				
+				
+				 
+				
+				
+				</l:HorizontalLayout> 
+				
+				
+					<GenericTile header="High Priority Notifications" subheader="High Prior"  
+				frameType="TwoThirds" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout tile blue" >
+				  <tileContent>
+				   
+				    	<TileContent footer="" unit="H"> 
+				    	    <NumericContent value="{notifymodel>/VeryHigh}" scale=""
+		                                                 valueColor="Error" indicator="Down" class="sapUiSmallMargin"  />
+	                                                                                                                    
+		                 </TileContent>
+				
+				  </tileContent>
+				</GenericTile> 
+				
+				
+				<l:HorizontalLayout>
+				<StandardTile 
+				
+				icon = "sap-icon://bell"
+				
+				type="Create"
+				number="{notifymodel>/Total}"
+				numberUnit="RH"
+				title="Total Recieved Notifications"
+				info="Notification"
+				infoState="Success" />
+				
+				<StandardTile 
+				
+				icon = "sap-icon://alert"
+				
+				type="Monitor"
+				number="{notifymodel>/VeryHigh}"
+				numberUnit="RH"
+				title="High Priority Notifications"
+				info="HIGH PRIOR"
+				infoState="Error" />
+				
+			
+					
+					
+				
+				
+				
+				
+				<StandardTile 
+				
+				icon = "sap-icon://alert"
+				
+				type="Create"
+				number="{notifymodel>/Critical}"
+				numberUnit="RH"
+				title="Critical Notifications"
+				info="CRITICAL"
+				infoState="Warning" />
+				
+					</l:HorizontalLayout>
+				
+				</l:VerticalLayout>
+			
+			    
+				
+				
+	
+
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

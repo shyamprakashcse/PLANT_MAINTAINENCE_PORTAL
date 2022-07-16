@@ -1,0 +1,75 @@
+<!--<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"-->
+<!--	controllerName="COM.PLANTMAINTENACEPORTALPLANTMAINTENACEPORTAL.controller.LOGINPAGE" xmlns:html="http://www.w3.org/1999/xhtml">-->
+<!--	<App>-->
+<!--		<pages>-->
+<!--			<Page title="Title">-->
+<!--				<content>-->
+<!--					<Text text="I am login"></Text>-->
+<!--				</content>-->
+<!--			</Page>-->
+<!--		</pages>-->
+<!--	</App>-->
+<!--</mvc:View>--> 
+
+<mvc:View controllerName="COM.PLANTMAINTENACEPORTALPLANTMAINTENACEPORTAL.controller.LOGINPAGE" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.f" xmlns:card="sap.f.cards"  
+	xmlns:l="sap.ui.layout" displayBlock="true" xmlns="sap.m">
+	<App id="app">
+		<pages>
+			<Page title="{i18n>title}" class="p1" id="page">
+		     <!--<Image src="/webapp/images/Tractor.jpg"  alt="This is an image with a press handlel" decorative="false" press="onImagePress"></Image> --> 
+		               <html:p class="headingpara center ">Maintenance Portal System </html:p> 
+		     		<html:div class="logindiv"> 
+		     		     
+		     			   <html:div class="left">
+		     			   
+		     		        <Input placeholder="Enter Your Maintenace Employee Id"  id="empid" liveChange="validateInput"></Input>
+		     		        <Input placeholder="Enter Your Password" type="Password" id="emppass" liveChange="validatePassword"></Input> 
+		     		      	<Button text="Login" class="sapUiSmallMarginBottom btn" press="login" width="280px" ></Button>
+		     		      	
+		     		      	<!--<Button text="NextPage" class="sapUiSmallMarginBottom" press="go" width="280px" ></Button>-->
+		     		        
+		     		        
+
+		     			     
+		     				</html:div>
+		     			
+		     				<!--<html:div class="right">-->
+		     				<!--	<Image src="/webapp/images/maintenance.jpg" class="img" alt="This is an image with a press handlel" decorative="false" press="onImagePress"></Image> -->
+		     					
+		     
+		     				<!--</html:div>-->
+		     		
+		     		 </html:div>
+		     		 
+		     		 <!--<html:div class="logindiv">-->
+		     		 <!--     <html:div class="centerelements"> -->
+		     		 <!--       <f:Card class="sapUiMediumMargin" width="250px">-->
+		     		 <!--       	<f:header>-->
+		     		 <!--       		<card:Header title="Maintenace Employee Login " subtitle="Enter Your Employee ID and Password">-->
+		     		        			
+		     		 <!--       		</card:Header>-->
+		     		 <!--       	</f:header> -->
+		     		        	
+		     		 <!--       	<f:content>-->
+		     		 <!--       		<FlexBox class="loginflexboxmargin" width="100%" height="150px" direction="Column" alignItems="Center">-->
+		     		 <!--       			<Input type="Text" placeholder="Enter Your Employee ID" ></Input>-->
+		     		 <!--       			<Input type="Password" placeholder="Enter Your Password" ></Input>-->
+		     		 <!--       			<Button text="Login" type="Emphasized"></Button>-->
+		     		 <!--       		</FlexBox>-->
+		     		 <!--       	</f:content>-->
+		     		 <!--       </f:Card>-->
+		     		      	
+		     		 <!--     </html:div>	-->
+		     		 <!--</html:div>-->
+		     		 
+		     		 
+		     		
+	               
+	          
+		   
+			</Page> 
+		
+		</pages>
+	</App>
+</mvc:View>
